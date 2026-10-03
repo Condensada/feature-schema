@@ -52,6 +52,14 @@ details[open]{padding-bottom:.6rem}
 .frame{width:100%;height:75vh;min-height:420px;border:3px solid var(--ink);border-radius:8px;background:#fff}
 .empty{border:2px dashed var(--ink);border-radius:8px;padding:1.5rem;background:#fff}
 .empty code{background:var(--yellow);padding:.1rem .35rem;border-radius:4px}
+.sheet-uploads{display:flex;justify-content:flex-end}
+.upload-button{display:inline-grid;place-items:center;width:2.5rem;height:2.5rem;border:2px solid var(--ink);border-radius:50%;background:var(--yellow);color:var(--ink);font:800 1.5rem/1 var(--font);cursor:pointer}
+.upload-button:hover{background:var(--ink);color:var(--yellow)}
+.uploaded-files{margin:.75rem 0 0;padding-left:1.25rem}
+.uploaded-files:empty{display:none}
+.uploaded-files a{color:var(--ink);font-weight:600}
+.upload-status{margin:.5rem 0 0}
+.upload-status:empty{display:none}
 dialog{width:min(100% - 2rem,32rem);border:3px solid var(--ink);border-radius:8px;padding:1.5rem;background:var(--paper);color:var(--ink)}
 dialog::backdrop{background:rgba(27,27,27,.6)}
 .tab-form h2{margin:0 0 1rem}

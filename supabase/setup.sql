@@ -23,13 +23,24 @@ create table if not exists public.handbook_pages (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.handbook_uploads (
+  id uuid primary key default gen_random_uuid(),
+  page_id text not null check (page_id in ('planner', 'creative')),
+  file_name text not null check (char_length(file_name) between 1 and 255),
+  storage_path text not null unique,
+  created_at timestamptz not null default now()
+);
+
 alter table public.handbook_tabs enable row level security;
 alter table public.handbook_pages enable row level security;
+alter table public.handbook_uploads enable row level security;
 
 grant select on public.handbook_tabs to anon, authenticated;
 grant insert, update, delete on public.handbook_tabs to authenticated;
 grant select on public.handbook_pages to anon, authenticated;
 grant insert, update, delete on public.handbook_pages to authenticated;
+grant select on public.handbook_uploads to anon, authenticated;
+grant insert, delete on public.handbook_uploads to authenticated;
 
 drop policy if exists "Anyone can view handbook tabs" on public.handbook_tabs;
 create policy "Anyone can view handbook tabs"
@@ -71,6 +82,21 @@ create policy "Only the handbook admin can edit pages"
 drop policy if exists "Only the handbook admin can delete pages" on public.handbook_pages;
 create policy "Only the handbook admin can delete pages"
   on public.handbook_pages for delete to authenticated
+  using (lower(auth.jwt() ->> 'email') = '2240084@slu.edu.ph');
+
+drop policy if exists "Anyone can view handbook uploads metadata" on public.handbook_uploads;
+create policy "Anyone can view handbook uploads metadata"
+  on public.handbook_uploads for select to anon, authenticated
+  using (true);
+
+drop policy if exists "Only the handbook admin can add uploads" on public.handbook_uploads;
+create policy "Only the handbook admin can add uploads"
+  on public.handbook_uploads for insert to authenticated
+  with check (lower(auth.jwt() ->> 'email') = '2240084@slu.edu.ph');
+
+drop policy if exists "Only the handbook admin can delete uploads" on public.handbook_uploads;
+create policy "Only the handbook admin can delete uploads"
+  on public.handbook_uploads for delete to authenticated
   using (lower(auth.jwt() ->> 'email') = '2240084@slu.edu.ph');
 
 insert into storage.buckets (id, name, public, file_size_limit)

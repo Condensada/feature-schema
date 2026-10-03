@@ -57,8 +57,34 @@ const FILE_BUCKET = "tab-uploads";
       box.className = "empty";
       const message = document.createElement("p");
       message.textContent = "No sheet linked yet. Add the Google Sheets link in config.js, then redeploy.";
-      box.appendChild(message);
+      const attachments = document.createElement("div");
+      attachments.className = "sheet-uploads";
+      const uploadButton = document.createElement("button");
+      uploadButton.className = "upload-button";
+      uploadButton.type = "button";
+      uploadButton.setAttribute("aria-label", "Upload a file to " + section.querySelector("h1").textContent);
+      uploadButton.title = "Upload a file";
+      uploadButton.textContent = "+";
+      uploadButton.hidden = !isAdmin;
+      const filePicker = document.createElement("input");
+      filePicker.type = "file";
+      filePicker.hidden = true;
+      filePicker.tabIndex = -1;
+      const uploadStatus = document.createElement("p");
+      uploadStatus.className = "upload-status";
+      uploadStatus.setAttribute("role", "status");
+      const fileList = document.createElement("ul");
+      fileList.className = "uploaded-files";
+      fileList.setAttribute("aria-label", "Uploaded files");
+      uploadButton.addEventListener("click", function () { filePicker.click(); });
+      filePicker.addEventListener("change", function () {
+        const file = filePicker.files[0];
+        if (file) uploadSheetFile(section, file, fileList, uploadStatus);
+      });
+      attachments.append(uploadButton, filePicker);
+      box.append(message, attachments, fileList, uploadStatus);
       holder.appendChild(box);
+      loadSheetUploads(section, fileList, uploadStatus);
       return;
     }
 
@@ -79,6 +105,70 @@ const FILE_BUCKET = "tab-uploads";
     frame.loading = "lazy";
     frame.referrerPolicy = "no-referrer";
     holder.append(actions, frame);
+  }
+
+  function addUploadedFile(fileList, fileName, publicUrl) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = publicUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = fileName;
+    item.appendChild(link);
+    fileList.appendChild(item);
+  }
+
+  async function loadSheetUploads(section, fileList, uploadStatus) {
+    if (!client) return;
+    const result = await client.from("handbook_uploads")
+      .select("file_name,storage_path")
+      .eq("page_id", section.dataset.sheet)
+      .order("created_at");
+    if (result.error) {
+      uploadStatus.textContent = "Could not load uploaded files: " + result.error.message;
+      return;
+    }
+    result.data.forEach(function (upload) {
+      const { data } = client.storage.from(FILE_BUCKET).getPublicUrl(upload.storage_path);
+      addUploadedFile(fileList, upload.file_name, data.publicUrl);
+    });
+  }
+
+  async function uploadSheetFile(section, file, fileList, uploadStatus) {
+    if (!isAdmin || !client) {
+      uploadStatus.textContent = "Sign in as the handbook admin to upload files.";
+      return;
+    }
+    uploadStatus.textContent = "";
+    if (file.size > 25 * 1024 * 1024) {
+      uploadStatus.textContent = "Files must be 25 MB or smaller.";
+      return;
+    }
+
+    const safeName = file.name.replace(/[^\w.-]+/g, "_").slice(-120) || "upload";
+    const storagePath = "sheets/" + section.dataset.sheet + "/" + crypto.randomUUID() + "/" + safeName;
+    const upload = await client.storage.from(FILE_BUCKET).upload(storagePath, file, { upsert: false });
+    if (upload.error) {
+      uploadStatus.textContent = "Upload failed: " + upload.error.message;
+      return;
+    }
+
+    const result = await client.from("handbook_uploads").insert({
+      page_id: section.dataset.sheet,
+      file_name: file.name,
+      storage_path: storagePath
+    });
+    if (result.error) {
+      const cleanup = await client.storage.from(FILE_BUCKET).remove([storagePath]);
+      uploadStatus.textContent = cleanup.error
+        ? "Could not save file details (" + result.error.message + ") or clean up the upload (" + cleanup.error.message + ")."
+        : "Could not save file details: " + result.error.message;
+      return;
+    }
+
+    const { data } = client.storage.from(FILE_BUCKET).getPublicUrl(storagePath);
+    addUploadedFile(fileList, file.name, data.publicUrl);
+    uploadStatus.textContent = "File uploaded.";
   }
 
   function cleanMarkup(markup) {
@@ -143,6 +233,7 @@ const FILE_BUCKET = "tab-uploads";
     document.getElementById("sign-in").hidden = isAdmin || !isConfigured;
     document.getElementById("sign-out").hidden = !isAdmin;
     document.getElementById("edit-current-tab").hidden = !isAdmin;
+    main.querySelectorAll(".upload-button").forEach(function (button) { button.hidden = !isAdmin; });
     if (isAdmin) {
       status.textContent = "Signed in as " + currentUser.email + ". You can edit handbook content and tabs.";
     } else if (!isConfigured) {
