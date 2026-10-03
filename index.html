@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feature Department Handbook</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <aside class="side">
+    <div class="brand">
+      <p class="brand-name">Feature Department</p>
+      <p class="brand-sub">Handbook &middot; [Publication name]</p>
+    </div>
+    <nav aria-label="Handbook sections">
+      <a href="#notes" data-tab="notes">Meeting notes</a>
+      <a href="#planner" data-tab="planner">Planner</a>
+      <a href="#creative" data-tab="creative">Creative works suggestions</a>
+      <a href="#digest" data-tab="digest">SCHEMA Digest handbook</a>
+      <a href="#humans" data-tab="humans">Humans of SAMCIS guide</a>
+    </nav>
+  </aside>
+
+  <main id="main">
+
+    <section id="notes" class="tab" hidden>
+      <header class="band"><h1>Meeting notes</h1><p>Newest first. Copy an entry block to add a new meeting.</p></header>
+      <div class="body">
+        <details open>
+          <summary>[Date] &ndash; [Meeting title]</summary>
+          <p><strong>Attendees:</strong> [Names]</p>
+          <p><strong>Agenda:</strong></p>
+          <ul><li>[Item]</li><li>[Item]</li></ul>
+          <p><strong>Decisions:</strong></p>
+          <ul><li>[Decision]</li></ul>
+          <p><strong>Action items:</strong></p>
+          <ul><li>[Task] &ndash; [Owner] &ndash; due [Date]</li></ul>
+        </details>
+        <details>
+          <summary>[Date] &ndash; [Meeting title]</summary>
+          <p>[Notes go here.]</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="planner" class="tab" hidden data-sheet="planner">
+      <header class="band"><h1>Planner</h1><p>Assignments, deadlines, and issue schedule.</p></header>
+      <div class="body sheet"></div>
+    </section>
+
+    <section id="creative" class="tab" hidden data-sheet="creative">
+      <header class="band"><h1>Creative works suggestions</h1><p>Add your idea, poem, photo essay, or story pitch to the sheet.</p></header>
+      <div class="body sheet"></div>
+    </section>
+
+    <section id="digest" class="tab" hidden>
+      <header class="band"><h1>SCHEMA Digest handbook</h1><p>Draft structure. Replace the bracketed text with your department's rules.</p></header>
+      <div class="body doc">
+        <h2>Purpose</h2>
+        <p>[What the SCHEMA Digest is, who reads it, and what it should feel like.]</p>
+        <h2>Issue schedule</h2>
+        <p>[Release dates, submission cutoffs, and layout handoff dates. Link to the Planner tab.]</p>
+        <h2>Roles</h2>
+        <ul>
+          <li><strong>Feature Editor:</strong> [Responsibilities]</li>
+          <li><strong>Writers:</strong> [Responsibilities]</li>
+          <li><strong>Photographers and artists:</strong> [Responsibilities]</li>
+          <li><strong>Layout and copy desk:</strong> [Responsibilities]</li>
+        </ul>
+        <h2>Content types</h2>
+        <ul><li>[Feature story: word count, tone]</li><li>[Profile]</li><li>[Creative work]</li><li>[Other]</li></ul>
+        <h2>Pitching and assignment</h2>
+        <p>[How to pitch, who approves, how assignments are handed out.]</p>
+        <h2>Writing and editing workflow</h2>
+        <ol><li>[Pitch approved]</li><li>[First draft due]</li><li>[Editor review]</li><li>[Revision]</li><li>[Copy desk and fact check]</li><li>[Layout]</li><li>[Final approval]</li></ol>
+        <h2>Style guide</h2>
+        <p>[Voice, spelling, headline format, captions, and citation rules.]</p>
+        <h2>Ethics and permissions</h2>
+        <p>[Consent for interviews and photos, handling sensitive topics, corrections policy.]</p>
+        <h2>Final checklist</h2>
+        <ul><li>[Names and titles verified]</li><li>[Photos credited]</li><li>[Editor sign-off]</li></ul>
+      </div>
+    </section>
+
+    <section id="humans" class="tab" hidden>
+      <header class="band"><h1>Humans of SAMCIS guide</h1><p>Draft structure. Replace the bracketed text with your series' rules.</p></header>
+      <div class="body doc">
+        <h2>What the series is</h2>
+        <p>[One paragraph on the series' goal and the kind of stories it tells.]</p>
+        <h2>Choosing a subject</h2>
+        <ul><li>[Who qualifies: students, faculty, staff, alumni]</li><li>[How to keep the selection varied]</li><li>[Who approves the subject]</li></ul>
+        <h2>Before the interview</h2>
+        <ul><li>[How to ask for consent]</li><li>[Where and when to meet]</li><li>[What to bring: recorder, notes, camera]</li></ul>
+        <h2>Question bank</h2>
+        <ul><li>[Opening question]</li><li>[Question about their journey]</li><li>[Question about a challenge]</li><li>[Closing question]</li></ul>
+        <h2>Photo guidelines</h2>
+        <p>[Orientation, lighting, background, file format, and naming.]</p>
+        <h2>Writing the piece</h2>
+        <p>[Length, quote-led or narrative format, how to handle edits to quotes.]</p>
+        <h2>Review and approval</h2>
+        <ol><li>[Send the draft to the subject]</li><li>[Editor review]</li><li>[Final sign-off]</li></ol>
+        <h2>Publishing checklist</h2>
+        <ul><li>[Written consent on file]</li><li>[Photo credited]</li><li>[Name, year, and program checked]</li></ul>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
