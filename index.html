@@ -25,6 +25,11 @@
       <a href="#digest" data-tab="digest">SCHEMA Digest handbook</a>
       <a href="#humans" data-tab="humans">Humans of SAMCIS guide</a>
     </nav>
+    <div class="tab-actions">
+      <button class="btn" id="add-link-tab" type="button">Add link tab</button>
+      <button class="btn btn-secondary" id="add-upload-tab" type="button">Upload file tab</button>
+    </div>
+    <p class="status" id="tab-status" role="status" aria-live="polite"></p>
   </aside>
 
   <main id="main">
@@ -112,6 +117,25 @@
 
   </main>
 </div>
+<dialog id="tab-dialog" aria-labelledby="tab-dialog-title">
+  <form class="tab-form">
+    <h2 id="tab-dialog-title">Add a tab</h2>
+    <label for="tab-name">Tab name</label>
+    <input id="tab-name" name="name" required maxlength="80" autocomplete="off">
+    <div id="tab-url-field">
+      <label for="tab-url">Web link</label>
+      <input id="tab-url" name="url" type="url" placeholder="https://example.com">
+    </div>
+    <div id="tab-file-field" hidden>
+      <label for="tab-file">Choose a file</label>
+      <input id="tab-file" name="file" type="file">
+    </div>
+    <div class="dialog-actions">
+      <button class="btn" id="save-tab" type="submit">Add tab</button>
+      <button class="btn btn-secondary" id="cancel-tab" type="button">Cancel</button>
+    </div>
+  </form>
+</dialog>
 <script src="app.js"></script>
 </body>
 </html>

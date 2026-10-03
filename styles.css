@@ -21,6 +21,12 @@ nav{display:flex;flex-direction:column;gap:.35rem}
 nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:.65rem .85rem;border:2px solid transparent;border-radius:6px}
 nav a:hover{border-color:var(--ink)}
 nav a[aria-current="page"]{background:var(--ink);color:var(--yellow)}
+.tab-actions{display:grid;gap:.5rem;margin-top:1.25rem}
+.tab-actions .btn{font:inherit;text-align:center;cursor:pointer}
+.btn-secondary{background:var(--paper);color:var(--ink)}
+.btn-secondary:hover{background:var(--ink);color:var(--yellow)}
+.status{font-size:.9rem;margin:.75rem 0 0}
+.status:empty{display:none}
 
 main{min-width:0}
 .band{background:var(--yellow);padding:2.5rem clamp(1.25rem,4vw,3.5rem) 1.75rem;border-bottom:4px solid var(--ink)}
@@ -45,6 +51,13 @@ details[open]{padding-bottom:.6rem}
 .frame{width:100%;height:75vh;min-height:420px;border:3px solid var(--ink);border-radius:8px;background:#fff}
 .empty{border:2px dashed var(--ink);border-radius:8px;padding:1.5rem;background:#fff}
 .empty code{background:var(--yellow);padding:.1rem .35rem;border-radius:4px}
+dialog{width:min(100% - 2rem,32rem);border:3px solid var(--ink);border-radius:8px;padding:1.5rem;background:var(--paper);color:var(--ink)}
+dialog::backdrop{background:rgba(27,27,27,.6)}
+.tab-form h2{margin:0 0 1rem}
+.tab-form label{display:block;font-weight:600;margin:.8rem 0 .25rem}
+.tab-form input{width:100%;font:inherit;padding:.55rem;border:2px solid var(--ink);border-radius:4px}
+.dialog-actions{display:flex;gap:.6rem;margin-top:1.25rem}
+.dialog-actions .btn{font:inherit;cursor:pointer}
 
 @media (max-width:820px){
   .shell{grid-template-columns:1fr}
@@ -52,4 +65,5 @@ details[open]{padding-bottom:.6rem}
   .brand{margin-bottom:1rem}
   nav{flex-direction:row;overflow-x:auto;gap:.5rem;padding-bottom:.25rem}
   nav a{white-space:nowrap}
+  .tab-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
