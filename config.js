@@ -6,6 +6,6 @@ window.HANDBOOK_SUPABASE = {
 };
 
 window.HANDBOOK_SHEETS = {
-  planner: "",
-  creative: ""
+  planner: "https://docs.google.com/spreadsheets/d/1PlczV3B4FDtRzeoGMdKC9ZPu-NL0UPwqXUstFLX9FFo/edit?gid=203091067#gid=203091067",
+  creative: "https://docs.google.com/spreadsheets/d/1-2xu-TFgBYjlLGiwYxW8iaelht5oOv7r1pr0Dnl_43A/edit?usp=drive_link"
 };
