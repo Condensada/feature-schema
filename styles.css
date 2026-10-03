@@ -27,6 +27,7 @@ nav a[aria-current="page"]{background:var(--ink);color:var(--yellow)}
 .btn-secondary:hover{background:var(--ink);color:var(--yellow)}
 .status{font-size:.9rem;margin:.75rem 0 0}
 .status:empty{display:none}
+button[hidden]{display:none}
 
 main{min-width:0}
 .band{background:var(--yellow);padding:2.5rem clamp(1.25rem,4vw,3.5rem) 1.75rem;border-bottom:4px solid var(--ink)}
@@ -56,6 +57,8 @@ dialog::backdrop{background:rgba(27,27,27,.6)}
 .tab-form h2{margin:0 0 1rem}
 .tab-form label{display:block;font-weight:600;margin:.8rem 0 .25rem}
 .tab-form input{width:100%;font:inherit;padding:.55rem;border:2px solid var(--ink);border-radius:4px}
+.tab-form textarea{width:100%;font:inherit;padding:.55rem;border:2px solid var(--ink);border-radius:4px}
+.field-help{font-size:.9rem;margin:.35rem 0}
 .dialog-actions{display:flex;gap:.6rem;margin-top:1.25rem}
 .dialog-actions .btn{font:inherit;cursor:pointer}
 

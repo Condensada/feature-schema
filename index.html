@@ -26,8 +26,11 @@
       <a href="#humans" data-tab="humans">Humans of SAMCIS guide</a>
     </nav>
     <div class="tab-actions">
-      <button class="btn" id="add-link-tab" type="button">Add link tab</button>
-      <button class="btn btn-secondary" id="add-upload-tab" type="button">Upload file tab</button>
+      <button class="btn" id="sign-in" type="button" hidden>Admin sign in</button>
+      <button class="btn" id="sign-out" type="button" hidden>Sign out</button>
+      <button class="btn btn-secondary" id="edit-current-tab" type="button" hidden>Edit current tab</button>
+      <button class="btn" id="add-link-tab" type="button" hidden>Add link tab</button>
+      <button class="btn btn-secondary" id="add-upload-tab" type="button" hidden>Upload file tab</button>
     </div>
     <p class="status" id="tab-status" role="status" aria-live="polite"></p>
   </aside>
@@ -136,6 +139,27 @@
     </div>
   </form>
 </dialog>
+<dialog id="editor-dialog" aria-labelledby="editor-dialog-title">
+  <form class="tab-form editor-form">
+    <h2 id="editor-dialog-title">Edit current tab</h2>
+    <label for="edit-title">Tab title</label>
+    <input id="edit-title" name="title" required maxlength="120">
+    <label for="edit-description">Description</label>
+    <textarea id="edit-description" name="description" rows="3" maxlength="500"></textarea>
+    <div id="edit-content-field">
+      <label for="edit-content">Content (HTML)</label>
+      <textarea id="edit-content" name="content" rows="16"></textarea>
+      <p class="field-help">Allowed tags: headings, paragraphs, lists, emphasis, details, blockquotes, and safe links. Scripts and other markup are removed.</p>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn" type="submit">Save changes</button>
+      <button class="btn btn-secondary" id="delete-tab" type="button" hidden>Delete tab</button>
+      <button class="btn btn-secondary" id="cancel-edit" type="button">Cancel</button>
+    </div>
+  </form>
+</dialog>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
