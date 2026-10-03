@@ -56,7 +56,7 @@ const FILE_BUCKET = "tab-uploads";
       const box = document.createElement("div");
       box.className = "empty";
       const message = document.createElement("p");
-      message.textContent = "No sheet linked yet. Add the Google Sheets link in config.js, then redeploy.";
+      message.textContent = "No sheet linked yet. Upload files below, or add the Google Sheets link in config.js and redeploy.";
       const attachments = document.createElement("div");
       attachments.className = "sheet-uploads";
       const uploadButton = document.createElement("button");
@@ -79,12 +79,12 @@ const FILE_BUCKET = "tab-uploads";
       uploadButton.addEventListener("click", function () { filePicker.click(); });
       filePicker.addEventListener("change", function () {
         const file = filePicker.files[0];
-        if (file) uploadSheetFile(section, file, fileList, uploadStatus);
+        if (file) uploadSheetFile(section, file, fileList, uploadStatus, message);
       });
       attachments.append(uploadButton, filePicker);
       box.append(message, attachments, fileList, uploadStatus);
       holder.appendChild(box);
-      loadSheetUploads(section, fileList, uploadStatus);
+      loadSheetUploads(section, fileList, uploadStatus, message);
       return;
     }
 
@@ -118,7 +118,11 @@ const FILE_BUCKET = "tab-uploads";
     fileList.appendChild(item);
   }
 
-  async function loadSheetUploads(section, fileList, uploadStatus) {
+  function updateMissingSheetNotice(message, fileList) {
+    message.hidden = fileList.childElementCount > 0;
+  }
+
+  async function loadSheetUploads(section, fileList, uploadStatus, message) {
     if (!client) return;
     const result = await client.from("handbook_uploads")
       .select("file_name,storage_path")
@@ -132,9 +136,10 @@ const FILE_BUCKET = "tab-uploads";
       const { data } = client.storage.from(FILE_BUCKET).getPublicUrl(upload.storage_path);
       addUploadedFile(fileList, upload.file_name, data.publicUrl);
     });
+    updateMissingSheetNotice(message, fileList);
   }
 
-  async function uploadSheetFile(section, file, fileList, uploadStatus) {
+  async function uploadSheetFile(section, file, fileList, uploadStatus, message) {
     if (!isAdmin || !client) {
       uploadStatus.textContent = "Sign in as the handbook admin to upload files.";
       return;
@@ -168,6 +173,7 @@ const FILE_BUCKET = "tab-uploads";
 
     const { data } = client.storage.from(FILE_BUCKET).getPublicUrl(storagePath);
     addUploadedFile(fileList, file.name, data.publicUrl);
+    updateMissingSheetNotice(message, fileList);
     uploadStatus.textContent = "File uploaded.";
   }
 
