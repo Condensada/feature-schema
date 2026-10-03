@@ -14,9 +14,13 @@ body{font-family:var(--font);color:var(--ink);background:var(--paper);line-heigh
 
 .shell{display:grid;grid-template-columns:290px 1fr;min-height:100%}
 .side{background:var(--yellow);padding:2rem 1.25rem;position:sticky;top:0;height:100vh;overflow-y:auto;border-right:4px solid var(--ink)}
-.brand{margin-bottom:2rem}
+.brand{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+.brand-copy{min-width:0}
 .brand-name{font-weight:800;font-size:1.9rem;line-height:1.05;margin:0 0 .4rem;letter-spacing:-.02em}
 .brand-sub{margin:0;font-size:.95rem}
+.auth-actions{display:flex;gap:.4rem}
+.auth-button{font:inherit;cursor:pointer;white-space:nowrap}
+.auth-button svg{display:none}
 nav{display:flex;flex-direction:column;gap:.35rem}
 nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:.65rem .85rem;border:2px solid transparent;border-radius:6px}
 nav a:hover{border-color:var(--ink)}
@@ -86,10 +90,15 @@ dialog::backdrop{background:rgba(27,27,27,.6)}
   .brand-name{font-size:clamp(1.5rem,7vw,1.9rem)}
   .brand-sub{font-size:.875rem}
   nav{margin-inline:-.85rem;padding:0 .85rem .35rem;gap:.35rem}
-  nav a{font-size:.92rem;padding:.55rem .7rem}
+  nav a{font-size:.92rem;padding:.5rem .7rem;background:var(--paper);border:2px solid var(--ink);border-radius:6px}
+  nav a:hover{background:var(--yellow)}
+  nav a[aria-current="page"]{background:var(--ink);color:var(--yellow)}
+  .auth-button{display:grid;place-items:center;width:2.75rem;height:2.75rem;min-height:44px;padding:.55rem;border-radius:50%}
+  .auth-button svg{display:block;width:1.35rem;height:1.35rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .auth-button span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .tab-actions{gap:.45rem;margin-top:.8rem}
   .tab-actions .btn{min-width:0;min-height:44px;padding:.55rem .45rem;font-size:.9rem;line-height:1.2}
-  #sign-in,#sign-out,#edit-current-tab{grid-column:1/-1}
+  #edit-current-tab{grid-column:1/-1}
   .status{font-size:.85rem;margin-top:.55rem}
   .band{padding:1.5rem 1rem 1.15rem}
   .band h1{font-size:clamp(1.8rem,9vw,2.5rem)}

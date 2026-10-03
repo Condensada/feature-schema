@@ -15,8 +15,20 @@
 <div class="shell">
   <aside class="side">
     <div class="brand">
-      <p class="brand-name">Feature Department</p>
-      <p class="brand-sub">Handbook &middot; SCHEMA</p>
+      <div class="brand-copy">
+        <p class="brand-name">Feature Department</p>
+        <p class="brand-sub">Handbook &middot; SCHEMA</p>
+      </div>
+      <div class="auth-actions">
+        <button class="btn auth-button" id="sign-in" type="button" aria-label="Admin sign in" title="Admin sign in" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm11-4v6m-3-3h6"/></svg>
+          <span>Admin sign in</span>
+        </button>
+        <button class="btn auth-button" id="sign-out" type="button" aria-label="Sign out" title="Sign out" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5m5 5H3m9-9h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg>
+          <span>Sign out</span>
+        </button>
+      </div>
     </div>
     <nav aria-label="Handbook sections">
       <a href="#notes" data-tab="notes">Meeting notes</a>
@@ -26,8 +38,6 @@
       <a href="#humans" data-tab="humans">Humans of SAMCIS guide</a>
     </nav>
     <div class="tab-actions">
-      <button class="btn" id="sign-in" type="button" hidden>Admin sign in</button>
-      <button class="btn" id="sign-out" type="button" hidden>Sign out</button>
       <button class="btn btn-secondary" id="edit-current-tab" type="button" hidden>Edit current tab</button>
       <button class="btn" id="add-link-tab" type="button" hidden>Add link tab</button>
       <button class="btn btn-secondary" id="add-upload-tab" type="button" hidden>Upload file tab</button>
