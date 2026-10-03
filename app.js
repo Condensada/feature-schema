@@ -332,7 +332,11 @@ const FILE_BUCKET = "tab-uploads";
     if (pagesResult.error) throw pagesResult.error;
     customTabs = tabsResult.data || [];
     pageOverrides = {};
-    (pagesResult.data || []).forEach(function (page) { pageOverrides[page.page_id] = page; });
+    (pagesResult.data || []).forEach(function (page) {
+      const oldMeetingTemplate = page.page_id === "notes" &&
+        /\[(?:Date|Dass)\]\s*[–-]\s*\[Meeting title\]/.test(page.content_html);
+      if (!oldMeetingTemplate) pageOverrides[page.page_id] = page;
+    });
     customTabs.forEach(makeCustomTab);
     applyPageOverrides();
     show();
